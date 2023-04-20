@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+run-pandoc() {
+    pandoc --table-of-contents --number-sections "$@"
+}
+
+mkdir -p output/
+run-pandoc -t latex       -o output/book.pdf 01-introduction.md
+
+rm -r output/www
+run-pandoc -t chunkedhtml --katex -o output/www/     01-introduction.md
+
